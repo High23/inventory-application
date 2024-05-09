@@ -3,7 +3,7 @@ const router = express.Router();
 
 const category_controller = require("../controllers/categoryController")
 const company_controller = require("../controllers/companyController")
-const item_controller = require("../controllers/itemController")
+const item_controller = require("../controllers/gameController")
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {

@@ -1,18 +1,18 @@
 #! /usr/bin/env node
 
 console.log(
-    'This script populates some test items and categories to your database. Specified database as argument - e.g.: node populatedb "mongodb+srv://cooluser:coolpassword@cluster0.lz91hw2.mongodb.net/local_library?retryWrites=true&w=majority"'
+    'This script populates some test games and categories to your database. Specified database as argument - e.g.: node populatedb "mongodb+srv://cooluser:coolpassword@cluster0.lz91hw2.mongodb.net/local_library?retryWrites=true&w=majority"'
 );
 
   // Get arguments passed on command line
 const userArgs = process.argv.slice(2);
 
 const Category = require("./models/category");
-const Item = require("./models/item");
+const Game = require("./models/game");
 const Company = require("./models/company");
 
 const categories = [];
-const items = [];
+const games = [];
 const companies = [];
 
 const mongoose = require("mongoose");
@@ -46,11 +46,11 @@ async function categoryCreate(index, name, description) {
 async function itemCreate(index, name, company, description, category, price, numberInStock) {
     const itemDetail = { name: name, company: company, description: description, category: category, price: price, numberInStock: numberInStock };
   
-    const item = new Item(itemDetail);
+    const game = new Game(itemDetail);
   
-    await item.save();
-    items[index] = item;
-    console.log(`Added item: ${name}`);
+    await game.save();
+    games[index] = game;
+    console.log(`Added game: ${name}`);
 }
 
 async function companyCreate(index, name) {
@@ -75,7 +75,7 @@ async function createCategories() {
 }
   
 async function createItems() {
-    console.log("Adding items");
+    console.log("Adding games");
     await Promise.all([
       itemCreate(0, "Destiny 2", companies[0],
         ["Dive into the world of Destiny 2 to explore the mysteries of the solar system and experience responsive first-person shooter combat. Unlock powerful elemental abilities and collect unique gear to customize your Guardian's look and playstyle. Enjoy Destiny 2’s cinematic story, challenging co-op missions, and a variety of PvP modes alone or with friends. Download for free today and write your legend in the stars."],
