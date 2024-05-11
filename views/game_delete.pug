@@ -1,0 +1,24 @@
+extends layout
+
+block content
+
+  h1 #{title}: #{game.name}
+
+  if game.numberInStock > 0
+
+    p #[strong You must delete the entire game stock before you can delete this game.]
+    div(style='margin-left:20px;margin-top:20px')
+      h4 Amount in stock: #{game.numberInStock}
+      form(method="post")
+        div.form-group
+          input#removestockamount.form-control(type='number', name='removestockamount', min=0, max=game.numberInStock, value=1 )
+          br
+          button.btn.btn-primary(type="submit") Delete stock amount
+  else
+    p Do you really want to delete this Game?
+
+    form(method='POST')
+      div.form-group
+        input#gameid.form-control(type='hidden', name='gameid', value=game._id )
+
+      button.btn.btn-primary(type='submit') Delete

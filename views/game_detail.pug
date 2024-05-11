@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  h1 #{title}
+
+  p #[strong Company: ]
+    a(href=game.company.url) #{game.company.name}
+  p #[strong Genre: ]
+    each val, index in game.category
+      a(href=val.url) #{val.name}
+      if index < game.category.length - 1
+        |,&nbsp;  
+  p #[strong Description:] #{game.description}
+  
+  hr
+  p
+    a(href=game.url+'/delete') Delete Game
+  p
+    a(href=game.url+'/update') Update Game
