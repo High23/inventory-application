@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
+const category_controller = require("../controllers/categoryController")
 const company_controller = require("../controllers/companyController")
 const game_controller = require("../controllers/gameController")
 
