@@ -105,13 +105,13 @@ exports.game_create_post = [
 exports.game_delete_get = asyncHandler(async (req, res, next) => {
     const game = await Game.findById(req.params.id).exec()
     
-      if (game === null) {
+    if (game === null) {
         res.redirect("/games")
-      }
-      res.render("game_delete", {
+    }
+    res.render("game_delete", {
         title: "Delete Game",
         game: game,
-      });
+    });
 })
 
 exports.game_delete_post = asyncHandler(async (req, res, next) => {
@@ -139,29 +139,29 @@ exports.game_delete_post = asyncHandler(async (req, res, next) => {
 
 exports.game_update_get = asyncHandler(async (req, res, next) => {
     const [game, allCompanies, allCategories] = await Promise.all([
-        Game.findById(req.params.id).populate("category").populate("company").exec(),
+        Game.findById(req.params.id).exec(),
         Company.find().sort({ name: 1 }).exec(),
         Category.find().sort({ name: 1 }).exec(),
-      ]);
-    
-      if (game === null) {
-        // No results.
+    ]);
+
+    if (game === null) {
+    // No results.
         const err = new Error("Game not found");
         err.status = 404;
         return next(err);
-      }
-    
-      // Mark our selected categories as checked.
-      allCategories.forEach((category) => {
+    }
+
+    // Mark our selected categories as checked.
+    allCategories.forEach((category) => {
         if (game.category.includes(category._id)) category.checked = "true";
-      });
-    
-      res.render("game_form", {
+    });
+
+    res.render("game_form", {
         title: "Update Game",
         companies: allCompanies,
         categories: allCategories,
         game: game,
-      });
+    });
 })
 
 exports.game_update_post = [
@@ -226,4 +226,4 @@ exports.game_update_post = [
             res.redirect(updatedGame.url);
         }
     }),
-  ];
+];
