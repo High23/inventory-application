@@ -17,7 +17,7 @@ const app = express();
 
 const limiter = RateLimit({
   windowMs: 1 * 60 * 1000, // 1 minute
-  max: 20,
+  max: 25,
 });
 
 app.use(limiter)
@@ -38,9 +38,6 @@ async function main() {
   await mongoose.connect(mongoDB);
 }
 
-const hostname = '127.0.0.1'
-const port = 8080
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -50,6 +47,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(compression())
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 
@@ -72,9 +70,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-app.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`)
-})
 
 module.exports = app;
