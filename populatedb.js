@@ -79,7 +79,7 @@ async function createGames() {
     await Promise.all([
       gameCreate(0, "Destiny 2", companies[0],
         ["Dive into the world of Destiny 2 to explore the mysteries of the solar system and experience responsive first-person shooter combat. Unlock powerful elemental abilities and collect unique gear to customize your Guardian's look and playstyle. Enjoy Destiny 2’s cinematic story, challenging co-op missions, and a variety of PvP modes alone or with friends. Download for free today and write your legend in the stars."],
-        [genres[0], genres[1], genres[2]], 0, 'Free'
+        [genres[0], genres[1], genres[2]], 0, 0
       ),
       gameCreate(1, 'Terraria', companies[1],
         ['Dig, Fight, Explore, Build: The very world is at your fingertips as you fight for survival, fortune, and glory. Will you delve deep into cavernous expanses in search of treasure and raw materials with which to craft ever-evolving gear, machinery, and aesthetics? Perhaps you will choose instead to seek out ever-greater foes to test your mettle in combat? Maybe you will decide to construct your own city to house the host of mysterious allies you may encounter along your travels?'],
@@ -87,7 +87,7 @@ async function createGames() {
       ),
       gameCreate(2, "Overwatch 2", companies[2],
         ["Overwatch 2 is a free-to-play, always-on, and ever-evolving live game. Join each season of Overwatch 2 in a thrilling new PvP journey featuring fresh content, from new heroes and maps to events, storytelling, gameplay updates, and more."],
-        [genres[0], genres[1]], 0, "Free"
+        [genres[0], genres[1]], 0, 0
       ),
       gameCreate(3, "7 Days to Die", companies[3],
         ["With over 16 million copies sold, 7 Days has defined the survival genre, with unrivaled crafting and world-building content. Set in a brutally unforgiving post-apocalyptic world overrun by the undead, 7 Days is an open-world game that is a unique combination of first-person shooter, survival horror, tower defense, and role-playing games. It presents combat, crafting, looting, mining, exploration, and character growth, in a way that has seen a rapturous response from fans worldwide. Play the definitive zombie survival sandbox RPG that came first. Navezgane awaits!"],

@@ -64,7 +64,9 @@ exports.game_create_post = [
 
     asyncHandler(async (req, res, next) => {
         const errors = validationResult(req);
-
+        if (req.body.price === 0) {
+            req.body.numberInStock = 0
+        }
         const game = new Game({
             name: req.body.name, 
             company: req.body.company, 

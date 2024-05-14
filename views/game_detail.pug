@@ -11,8 +11,8 @@ block content
       if index < game.genre.length - 1
         |,&nbsp;  
   p #[strong Price:] #{game.price === 0 ? "Free to Play" : game.price}
-  if (game.numberInStock === 'Free')
-    p #[strong Game codes in stock:] Infinite
+  if (game.price === 0)
+    p #[strong Game codes in stock:] Infinite, this game is free to play.
   else 
     p #[strong Game codes in stock:] #{game.numberInStock}
 
