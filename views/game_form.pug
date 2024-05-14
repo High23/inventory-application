@@ -21,7 +21,7 @@ block content
             option(value=company._id) #{company.name}
     div.form-group
       label(for='description') Description:
-      textarea#description.form-control(placeholder='Description' name='description' value=(undefined===game ? '' : game.description))
+      textarea#description.form-control(placeholder='Description' name='description')=(undefined===game ? '' : game.description)
     div.form-group
       label Genre:
       div

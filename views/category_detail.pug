@@ -2,6 +2,7 @@ extends layout
 
 block content
   h1 #[strong #{title}: ] #{category.name}
+  p #{category.description}
   p All games in genre:
     ul
         each val, index in gamesInCategory
