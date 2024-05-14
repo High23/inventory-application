@@ -1,0 +1,19 @@
+extends layout
+
+block content
+    h1 #{title}: #{company.name}
+    if (gamesByCompany.length)
+        p #[strong You must either delete these games or update their company to be able to delete this company.]
+        div(style='margin-left:20px;margin-top:20px')
+        ul
+            each val, index in gamesByCompany
+                li
+                    a(href=val.url) #{val.name}
+    else
+        p Do you really want to delete this company?
+            form(method='POST')
+                div.form-group
+                    input#companyid.form-control(type='hidden', autocomplete="off" name='companyid', value=company._id )
+
+                button.btn.btn-primary(type='submit') Delete
+    

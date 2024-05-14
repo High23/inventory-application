@@ -1,0 +1,17 @@
+extends layout
+
+block content
+    h1 #[strong #{title}: ] #{company.name}
+    if (gamesByCompany.length)
+        p Games made by #{company.name}:
+            ul
+                each val, index in gamesByCompany
+                    li
+                        a(href=val.url) #{val.name}
+    else 
+        p There are no games by this company.
+    hr
+    p
+        a(href=company.url+'/delete') Delete Company
+    p
+        a(href=company.url+'/update') Update Company

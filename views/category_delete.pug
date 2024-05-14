@@ -1,0 +1,19 @@
+extends layout
+
+block content
+    h1 #{title}: #{category.name}
+    p Do you really want to delete this genre?
+        form(method='POST')
+            div.form-group
+                input#categoryid.form-control(type='hidden', autocomplete="off" name='categoryid', value=category._id )
+
+            button.btn.btn-primary(type='submit') Delete
+    if (gamesInCategory.length)
+        p #[strong Deleting the genre will remove it from the following games.]
+        div(style='margin-left:20px;margin-top:20px')
+        ul
+            each val, index in gamesInCategory
+                li
+                    a(href=val.url) #{val.name}
+        
+    

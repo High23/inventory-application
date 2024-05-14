@@ -1,0 +1,25 @@
+extends layout
+
+block content
+    h1= title
+
+    form(method='POST')
+        div.form-group
+            label(for='name') Genre name:
+            input#name.form-control(type='text', placeholder='Name of genre' name='name' autocomplete="off" required minLength=1 value=(undefined===category ? '' : category.name) )
+        div.form-group
+            label(for='description') Description:
+            textarea#description.form-control(type='text', placeholder='This genre is so cool and epic!!' name='description' autocomplete="off" required minLength=1)=(undefined===category ? '' : category.description)
+        button.btn.btn-primary(type='submit') Submit
+    br
+    if (gamesInCategory !== undefined && gamesInCategory.length)
+        p #[strong Updating the genre name will remove #{category.name} from these games.]
+        div(style='margin-left:20px;margin-top:20px')
+            ul
+                each val, index in gamesInCategory
+                    li
+                        a(href=val.url) #{val.name}
+    if errors
+        ul #[strong Errors]
+            for error in errors
+                li!= error.msg
