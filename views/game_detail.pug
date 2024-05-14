@@ -6,10 +6,16 @@ block content
   p #[strong Company: ]
     a(href=game.company.url) #{game.company.name}
   p #[strong Genre: ]
-    each val, index in game.category
+    each val, index in game.genre
       a(href=val.url) #{val.name}
-      if index < game.category.length - 1
+      if index < game.genre.length - 1
         |,&nbsp;  
+  p #[strong Price:] #{game.price === 0 ? "Free to Play" : game.price}
+  if (game.numberInStock === 'Free')
+    p #[strong Game codes in stock:] Infinite
+  else 
+    p #[strong Game codes in stock:] #{game.numberInStock}
+
   p #[strong Description:] #{game.description}
   
   hr

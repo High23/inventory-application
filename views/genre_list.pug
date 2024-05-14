@@ -3,11 +3,11 @@ extends layout
 block content 
     h1= title 
     br
-    if categories.length
+    if genres.length
         ul 
-            each category in categories
+            each genre in genres
                 li 
-                    a(href=category.url) #{category.name}
+                    a(href=genre.url) #{genre.name}
 
     else 
         p There are no genres.

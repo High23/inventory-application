@@ -7,7 +7,7 @@ const GameSchema = new Schema({
     name: {type: String, required: true, minLength: 3, maxLength: 100}, 
     company: {type: Schema.Types.ObjectId, ref: "Company", required: true, minLength: 3, maxLength: 100}, 
     description: {type: Array, required: false, default: undefined}, 
-    category: [{type: Schema.Types.ObjectId, ref: "Category", required: true}], 
+    genre: [{type: Schema.Types.ObjectId, ref: "Genre", required: true}], 
     price: {type: Number, required: true, min: 0}, 
     numberInStock: {type: String, required: true} 
 })

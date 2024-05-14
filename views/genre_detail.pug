@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  h1 #[strong #{title}: ] #{genre.name}
+  p #{genre.description}
+  p All games in genre:
+    ul
+        each val, index in gamesInGenre
+            li
+                a(href=val.url) #{val.name}
+  hr
+  p
+    a(href=genre.url+'/delete') Delete Genre
+  p
+    a(href=genre.url+'/update') Update Genre

@@ -25,13 +25,13 @@ block content
     div.form-group
       label Genre:
       div
-        for category in categories
+        for genre in genres
           div(style='display: inline; padding-right:10px;')
-            if category.checked
-              input.checkbox-input(type='checkbox', name='category', id=category._id, value=category._id, checked)
+            if genre.checked
+              input.checkbox-input(type='checkbox', name='genre', id=genre._id, value=genre._id, checked)
             else
-              input.checkbox-input(type='checkbox', name='category', id=category._id, value=category._id)
-            label(for=category._id) &nbsp;#{category.name}
+              input.checkbox-input(type='checkbox', name='genre', id=genre._id, value=genre._id)
+            label(for=genre._id) &nbsp;#{genre.name}
     div.form-group
       label(for='price') Price:
       input#price.form-control(type="number", step="0.01" min=0 placeholder='14.99' name='price' required value=(undefined===game ? '' : game.price) )

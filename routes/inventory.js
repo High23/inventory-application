@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const category_controller = require("../controllers/categoryController")
+const genre_controller = require("../controllers/genreController")
 const company_controller = require("../controllers/companyController")
 const game_controller = require("../controllers/gameController")
 
@@ -23,23 +23,23 @@ router.get('/game/:id', game_controller.game);
 
 router.get('/games', game_controller.game_list);
 
-/* Routes for categories */
+/* Routes for genres */
 
-router.get('/category/create', category_controller.category_create_get);
+router.get('/genre/create', genre_controller.genre_create_get);
 
-router.post('/category/create', category_controller.category_create_post);
+router.post('/genre/create', genre_controller.genre_create_post);
 
-router.get('/category/:id/delete', category_controller.category_delete_get);
+router.get('/genre/:id/delete', genre_controller.genre_delete_get);
 
-router.post('/category/:id/delete', category_controller.category_delete_post);
+router.post('/genre/:id/delete', genre_controller.genre_delete_post);
 
-router.get('/category/:id/update', category_controller.category_update_get);
+router.get('/genre/:id/update', genre_controller.genre_update_get);
 
-router.post('/category/:id/update', category_controller.category_update_post);
+router.post('/genre/:id/update', genre_controller.genre_update_post);
 
-router.get('/category/:id', category_controller.category);
+router.get('/genre/:id', genre_controller.genre);
 
-router.get('/categories', category_controller.category_list);
+router.get('/genres', genre_controller.genre_list);
 
 /* Routes for companies */
 

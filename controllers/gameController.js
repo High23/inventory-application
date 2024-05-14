@@ -1,5 +1,5 @@
 const Game = require("../models/game")
-const Category = require("../models/category")
+const Genre = require("../models/genre")
 const Company = require("../models/company")
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
@@ -7,14 +7,14 @@ const { body, validationResult } = require("express-validator");
 exports.game_list = asyncHandler(async (req, res, next) => {
     const allGames = await Game.find({}, "name company")
         .sort({ name: 1 })
-        .populate("category")
+        .populate("genre")
         .populate("company")
         .exec();
     res.render("game_list", {title: "Games", game_list: allGames});
 })
 
 exports.game = asyncHandler(async (req, res, next) => {
-    const game = await Game.findById(req.params.id).populate("category").populate("company").exec();
+    const game = await Game.findById(req.params.id).populate("genre").populate("company").exec();
     
     if (game === null) {
         const gameError = new Error("Game not found.");
@@ -26,24 +26,24 @@ exports.game = asyncHandler(async (req, res, next) => {
 })
 
 exports.game_create_get = asyncHandler(async (req, res, next) => {
-    const [allCategories, allCompanies] = await Promise.all([
-        Category.find({}).sort({ name: 1 }).exec(),
+    const [allGenres, allCompanies] = await Promise.all([
+        Genre.find({}).sort({ name: 1 }).exec(),
         Company.find({}).sort({ name: 1 }).exec()
     ]);
 
     res.render("game_form", {
         title: "Create game", 
-        categories: allCategories, 
+        genres: allGenres, 
         companies: allCompanies,
     });
 });
 
 exports.game_create_post = [
     (req, res, next) => {
-        console.log(req.body.category)
-        if (!Array.isArray(req.body.category)) {
-            req.body.category =
-                typeof req.body.category === "undefined" ? [] : [req.body.category];
+        console.log(req.body.genre)
+        if (!Array.isArray(req.body.genre)) {
+            req.body.genre =
+                typeof req.body.genre === "undefined" ? [] : [req.body.genre];
         }
         next();
     }, 
@@ -60,7 +60,7 @@ exports.game_create_post = [
         .optional()
         .trim()
         .escape(),
-    body("category.*",).escape(),
+    body("genre.*",).escape(),
 
     asyncHandler(async (req, res, next) => {
         const errors = validationResult(req);
@@ -69,27 +69,27 @@ exports.game_create_post = [
             name: req.body.name, 
             company: req.body.company, 
             description: req.body.description, 
-            category: req.body.category, 
+            genre: req.body.genre, 
             price: req.body.price, 
             numberInStock: req.body.numberInStock
         })
         
         if (!errors.isEmpty()) {
-            const [allCategories, allCompanies] = await Promise.all([
-                Category.find({}).sort({ name: 1 }).exec(),
+            const [allGenres, allCompanies] = await Promise.all([
+                Genre.find({}).sort({ name: 1 }).exec(),
                 Company.find({}).sort({ name: 1 }).exec()
             ]);
 
-            // Mark our selected categories as checked.
-            for (const category of allCategories) {
-                if (game.category.includes(category._id)) {
-                    category.checked = "true";
+            // Mark our selected genres as checked.
+            for (const genre of allGenres) {
+                if (game.genre.includes(genre._id)) {
+                    genre.checked = "true";
                 }
             }
 
             res.render("game_form", {
                 title: "Create game", 
-                categories: allCategories, 
+                genres: allGenres, 
                 companies: allCompanies,
                 game: game,
                 errors: errors.array(),
@@ -138,10 +138,10 @@ exports.game_delete_post = asyncHandler(async (req, res, next) => {
 })
 
 exports.game_update_get = asyncHandler(async (req, res, next) => {
-    const [game, allCompanies, allCategories] = await Promise.all([
+    const [game, allCompanies, allGenres] = await Promise.all([
         Game.findById(req.params.id).exec(),
         Company.find().sort({ name: 1 }).exec(),
-        Category.find().sort({ name: 1 }).exec(),
+        Genre.find().sort({ name: 1 }).exec(),
     ]);
 
     if (game === null) {
@@ -151,25 +151,25 @@ exports.game_update_get = asyncHandler(async (req, res, next) => {
         return next(err);
     }
 
-    // Mark our selected categories as checked.
-    allCategories.forEach((category) => {
-        if (game.category.includes(category._id)) category.checked = "true";
+    // Mark our selected genres as checked.
+    allGenres.forEach((genre) => {
+        if (game.genre.includes(genre._id)) genre.checked = "true";
     });
 
     res.render("game_form", {
         title: "Update Game",
         companies: allCompanies,
-        categories: allCategories,
+        genres: allGenres,
         game: game,
     });
 })
 
 exports.game_update_post = [
     (req, res, next) => {
-        console.log(req.body.category)
-        if (!Array.isArray(req.body.category)) {
-            req.body.category =
-                typeof req.body.category === "undefined" ? [] : [req.body.category];
+        console.log(req.body.genre)
+        if (!Array.isArray(req.body.genre)) {
+            req.body.genre =
+                typeof req.body.genre === "undefined" ? [] : [req.body.genre];
         }
         next();
     }, 
@@ -186,7 +186,7 @@ exports.game_update_post = [
         .optional()
         .trim()
         .escape(),
-    body("category.*",).escape(),
+    body("genre.*",).escape(),
   
     asyncHandler(async (req, res, next) => {
         const errors = validationResult(req);
@@ -195,27 +195,27 @@ exports.game_update_post = [
             name: req.body.name, 
             company: req.body.company, 
             description: req.body.description, 
-            category: typeof req.body.category === "undefined" ? [] : req.body.category, 
+            genre: typeof req.body.genre === "undefined" ? [] : req.body.genre, 
             price: req.body.price, 
             numberInStock: req.body.numberInStock,
             _id: req.params.id,
         })
         
         if (!errors.isEmpty()) {
-            const [allCategories, allCompanies] = await Promise.all([
-                Category.find({}).sort({ name: 1 }).exec(),
+            const [allGenres, allCompanies] = await Promise.all([
+                Genre.find({}).sort({ name: 1 }).exec(),
                 Company.find({}).sort({ name: 1 }).exec()
             ]);
 
-            // Mark our selected categories as checked.
-            for (const category of allCategories) {
-                if (game.category.indexOf(category._id) > -1) {
-                    category.checked = "true";
+            // Mark our selected genres as checked.
+            for (const genre of allGenres) {
+                if (game.genre.indexOf(genre._id) > -1) {
+                    genre.checked = "true";
                 }
             }
             res.render("game_form", {
                 title: "Update game", 
-                categories: allCategories, 
+                genres: allGenres, 
                 companies: allCompanies,
                 game: game,
                 errors: errors.array(),
